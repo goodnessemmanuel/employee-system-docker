@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.amber-pink.min.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <!--===============================================================================================-->
+    <link th:href="@{/images/employee-favicon.ico}" rel="icon" type="image/icon">
+    <!--===============================================================================================-->
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <!--===============================================================================================-->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <!--===============================================================================================-->
+    <title>Basic Employee System</title>
+    <!--===============================================================================================-->
+    <style>
+        .mdl-button--raised{
+            background-color: #3aafa9;
+            color: #fefefe;
+        }
+    </style>
+</head>
+<body>
+    <div class="ct" id="t1">
+        <div class="ct" id="t2">
+            <div class="ct" id="t3">
+                <ul id="menu">
+                    <li><a title="Add New Employee" class="icon fa fa-plus-circle" id="uno" th:href="@{/show-add-form}"></a></li>
+                    <li class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Sort By
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li>
+                                <a class="dropdown-item"  th:href="@{'/page/' + ${currentPage} + '?fieldToSort=firstName&sortOrder='+ ${toggleSortOrder}}">
+                                    First Name <i class="fa fa-filter" aria-hidden="true"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{'/page/' + ${currentPage} + '?fieldToSort=lastName&sortOrder=' + ${toggleSortOrder}}">
+                                    Surname
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{'/page/' + ${currentPage} + '?fieldToSort=email&sortOrder=' + ${toggleSortOrder}}">
+                                    Email
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" th:href="@{'/page/' + ${currentPage} + '?fieldToSort=position&sortOrder=' + ${toggleSortOrder}}">
+                                    Position
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a title="Logout" style="color: red" class="icon fa fa-power-off" href="#"></a></li>
+                </ul>
+                <div class="page" id="p1" style="display: flex; justify-content: center; align-items: center">
+                    <section class="">
+                        <div class="row" >
+                            <div class="mdl-ce mdl-cell--1-col"></div>
+                            <div class="mdl-ce mdl-cell--10-col">
+                                <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp">
+                                    <thead>
+                                    <tr>
+                                        <th class="mdl-data-table__cell--non-numeric">First Name</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Surname</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Email</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Position</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Date Of Birth</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Address</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Modify</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="employee : ${employeeList}">
+                                        <td class="mdl-data-table__cell--non-numeric" th:text="${employee.firstName}"></td>
+                                        <td class="mdl-data-table__cell--non-numeric" th:text="${employee.lastName}"></td>
+                                        <td class="mdl-data-table__cell--non-numeric" th:text="${employee.email}"></td>
+                                        <td class="mdl-data-table__cell--non-numeric" th:text="${employee.position}"></td>
+                                        <td class="mdl-data-table__cell--non-numeric" th:text="${employee.dateOfBirth}"></td>
+                                        <td class="mdl-data-table__cell--non-numeric" th:text="${employee.address}"></td>
+                                        <td class="mdl-data-table__cell--non-numeric">
+                                            <a th:href="@{/show-update-form/{id}(id=${employee.id})}" class="btn mdl-button--raised"><i class="fa fa-edit"></i>Update</a>
+                                        </td>
+                                        <td class="mdl-data-table__cell--non-numeric">
+                                            <a th:href="@{/delete-employee/{id}(id=${employee.id})}" class="btn mdl-button--accent mdl-button--raised"><i class="fa fa-trash"></i>Delete</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="mdl-ce mdl-cell--1-col"></div>
+                        </div>
+                        <div th:if="${totalPage > 1}" class="row">
+                            <div class="col-sm-10" style="display: flex">
+                                <div class="col-sm-2">
+                                    Rows :[[${totalElement}]]
+                                </div>
+                                <div class="col-sm-2">
+                                    <span th:each="i : ${#numbers.sequence(1, totalPage)}">
+                                        <a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}  + '?fieldToSort=' + ${fieldToSort} + '&sortOrder=' + ${sortOrder}}">
+                                            [[${i}]]
+                                        </a>
+                                        <span th:unless="${currentPage != i}">[[${i}]]</span> &nbsp; &nbsp;
+                                    </span>
+                                </div>
+                                <div class="col-sm-1">
+                                    <a th:if="${currentPage < totalPage}" th:href="@{'/page/' + ${currentPage + 1}
+                            + '?fieldToSort=' + ${fieldToSort} + '&sortOrder=' + ${sortOrder}}">
+                                        Next
+                                    </a>
+                                    <span th:unless="${currentPage < totalPage}">Next</span>
+                                </div>
+                                <div class="col-sm-1">
+                                    <a th:if="${currentPage < totalPage}" th:href="@{'/page/' + ${totalPage} + '?fieldToSort=' + ${fieldToSort} + '&sortOrder=' + ${sortOrder}}">
+                                        Last
+                                    </a>
+                                    <span th:unless="${currentPage < totalPage}">Last</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <div class="page" id="p2">
+                    <section class="icon fa fa-keyboard-o"><span class="title">Type</span></section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--=============================bootstrap dependencies============================================-->
+    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
+    <!--===============================================================================================-->
+    <script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+    <!--===============================================================================================-->
+    <script th:src="@{/js/popper.min.js}"></script>
+    <!--===============================================================================================-->
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+    <!--===============================================================================================-->
+</body>
+</html>

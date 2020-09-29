@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.amber-pink.min.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link th:href="@{/facebook-favicon.ico}" rel="icon" type="image/icon">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <title>Basic Employee System</title>
+    <style>
+        .form-row div a, .form-row div button{
+            width: 80%;
+            color: #3aafa9
+        }
+        .form-row div a:hover, .form-row div button:hover{
+            color: #1b1e21;
+        }
+    </style>
+</head>
+<body>
+    <div class="">
+            <!-- Material form Add Employee -->
+            <div class="row mt-4 mdl-layout mdl-js-layout"  style="justify-content: center !important; align-items: center !important;">
+                <div class="mdl-layout__content">
+                    <form action="#" th:action="@{/update-employee}" th:object="${employee}" method="POST" class="md-form mdl-card mdl-shadow--2dp" novalidate role="form" name="employeeForm">
+                        <div class="mdl-card__title mdl-card--expand">
+                            <h2 class="mdl-card__title-text">Edit Employee</h2>
+                        </div>
+                        <input type="hidden" th:field="*{id}">
+                        <div class="mdl-card pl-3">
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input th:field="*{firstName}" class="mdl-textfield__input" type="text" id="firstName" name="firstName" ng-model="employee.firstName" required>
+                                <label class="mdl-textfield__label" for="firstName">First Name </label>
+                                <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}" class="mdl-textfield__error"></span>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input th:field="*{lastName}" class="mdl-textfield__input" type="text" id="lastName" name="lastName" ng-model="employee.lastName" required>
+                                <label class="mdl-textfield__label" for="lastName">Last Name </label>
+                                <span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}" class="mdl-textfield__error" ng-show="employee.lastName.$error.required"></span>
+                            </div>
+                            <div class="form-group mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input th:field="*{email}" class="mdl-textfield__input"  type="text" id="email" name="email" required>
+                                <label class="mdl-textfield__label" for="email">Email</label>
+                                <span  th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
+                            </div>
+                            <div class="form-group mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input th:field="*{position}" class="mdl-textfield__input"  type="text" id="position" name="position" required>
+                                <label class="mdl-textfield__label" for="position">Position</label>
+                                <span  th:if="${#fields.hasErrors('position')}" th:errors="*{position}" class="mdl-textfield__error"></span>
+                            </div>
+                            <div class="form-group mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <input th:field="*{dateOfBirth}" class="mdl-textfield__input pt-3"  type="date" id="dateOfBirth" name="dateOfBirth" required>
+                                <label class="mdl-textfield__label" for="dateOfBirth">Date Of Birth</label>
+                                <span  th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}" class="mdl-textfield__error"></span>
+                            </div>
+                            <div class="form-group mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                                <textarea th:field="*{address}" class="mdl-textfield__input"  type="date" id="address" name="address" required></textarea>
+                                <label class="mdl-textfield__label" for="address">Address</label>
+                                <span  th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="mdl-textfield__error"></span>
+                            </div>
+                        </div>
+                        <div class="form-group form-row p-3">
+                            <div class="col-6 mdl-card__actions mdl-card--border">
+                                <a th:href="@{/home}" class="btn mdl-button--raised">Back <<</a>
+                            </div>
+                            <div class="col-6 mdl-card__actions mdl-card--border">
+                                <button type="submit" class="btn mdl-button--raised">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+<!--bootstrap dependencies-->
+<script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
+<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+<script th:src="@{/js/popper.min.js}"></script>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+</body>
+</html>

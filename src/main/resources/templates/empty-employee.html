@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+	<title>Basic Employee System</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!--===============================================================================================-->
+	<link th:href="@{/images/employee-favicon.ico}" rel="icon" type="image/icon">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" th:href="@{asset/vendor/bootstrap/css/bootstrap.min.css}">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" th:href="@{asset/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+	<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" th:href="@{css/style.css}">
+</head>
+<body>
+	<div class="ct" id="t1">
+		<div class="ct" id="t2">
+			<div class="ct" id="t3">
+				<div class="ct" id="t4">
+					<div class="ct" id="t5">
+						<ul id="menu">
+							<a th:href="@{/show-add-form}"><li class="icon fa fa-plus-circle" id="uno"></li></a>
+							<a href="#t2"><li class="icon fa fa-keyboard-o" id="dos"></li></a>
+						</ul>
+						<div class="page" id="p1">
+							<section class="icon fa fa-user-plus">
+								<span class="title">Employee</span>
+								<span class="hint">Ooops! No employee added...
+									<br> Click the plus icon to add new employee or
+									<a style="color: #2b7a78; font-weight: bold" th:href="@{/show-add-form}">click here...</a>
+								</span>
+							</section>
+						</div>
+						<div class="page" id="p2">
+							<section class="icon fa fa-bolt"><span class="title">Type</span></section>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--===============================================================================================-->
+	<script th:src="@{asset/vendor/jquery/jquery-3.2.1.min.js}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{asset/vendor/bootstrap/js/popper.js}"></script>
+	<!--===============================================================================================-->
+	<script th:src="@{asset/vendor/bootstrap/js/bootstrap.min.js}"></script>
+	<!--===============================================================================================-->
+
+</body>
+</html>

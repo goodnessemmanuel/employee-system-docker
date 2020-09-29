@@ -1,0 +1,6 @@
+# Docker Compose file Reference (https://docs.docker.com/compose/compose-file/)
+version: "3.7"
+
+# Define services
+services:
+# Database Service (MySQL)
