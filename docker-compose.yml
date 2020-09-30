@@ -3,5 +3,33 @@ version: "3.8"
 
 # Define services
 services:
-# Database Service (MySQL)
+  # Database Service (MySQL)
   mysql-standalone:
+    image: mysql:latest
+    ports:
+      - "6606:3306"
+    restart: always
+    networks:
+      - mysql-link
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=root
+      - MYSQL_DATABASE=db_employee
+      - MYSQL_ROOT_PASSWORD=root
+
+  # Spring boot application Service
+  employee-managment-system:
+    image: employee-management-system
+    ports:
+      - "8090:8080"
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    networks:
+      - mysql-link
+    depends_on:
+      - mysql-standalone
+
+networks:
+  mysql-link:
+
