@@ -27,6 +27,8 @@ services:
       dockerfile: Dockerfile
     networks:
       - mysql-link
+    volumes:
+      - .:/build
     depends_on:
       - mysql-standalone
 

@@ -1,9 +1,13 @@
 FROM openjdk:11-jdk-slim
 
-VOLUME /temp
+COPY pom.xml /build/
+
+WORKDIR /build/
+
+COPY src /build/src/
 
 EXPOSE 8080
 
-ADD target/employee-management-system.jar employee-management-system.jar
+ADD target/employee-management-system.jar /build/employee-management-system.jar
 
-ENTRYPOINT ["java", "-jar", "employee-management-system.jar"]
+ENTRYPOINT ["java", "-jar", "/build/employee-management-system.jar"]
